@@ -3,35 +3,40 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package Bank;
 
 /**
  *
  * @author Andreas
  */
 public class Bank {
-    
+
     String name;
-    
+
     int minCreditScore;
-    
+
     int minLoanAmount;
     int maxLoanAmount;
-    
+
     int maxLoanDuration;
-    
-    public boolean IsRequirementMet(int cs, int amount, int dur){
+
+    public boolean IsRequirementMet(int cs, int amount, int dur) {
         int i = 0;
-        if(cs < minCreditScore)
+        if (cs > minCreditScore) {
             i++;
-        if(amount > minLoanAmount && amount < maxLoanAmount)
+        }
+        if (amount > minLoanAmount && amount < maxLoanAmount) {
             i++;
-        if(dur < maxLoanDuration)
+        }
+        if (dur < maxLoanDuration) {
             i++;
-        if(i == 3)
+        }
+        System.out.println(i);
+        if (i == 3) {
             return true;
-        else
-            return false;  
+        } else {
+            return false;
+        }
     }
 
     public Bank(String name, int minCreditScore, int minLoanAmount, int maxLoanAmount, int maxLoanDuration) {
@@ -45,9 +50,4 @@ public class Bank {
     public String getName() {
         return name;
     }
-    
-    
-    
-    
-    
 }
