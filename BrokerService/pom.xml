@@ -43,6 +43,21 @@
                         <id>wsimport-generate-CreditScoreService</id>
                         <phase>generate-sources</phase>
                     </execution>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>localhost_8080/RuleBase/RuleBaseWeb.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName></packageName>
+                            <wsdlLocation>http://localhost:8080/RuleBase/RuleBaseWeb?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/RuleBaseWeb.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-RuleBaseWeb</id>
+                        <phase>generate-sources</phase>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>
