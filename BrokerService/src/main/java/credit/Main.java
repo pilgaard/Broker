@@ -16,9 +16,12 @@ public class Main {
      */
     public static void main(String[] args) {
         CreditController cc = new CreditController();
-            String SSN = "123456-7890";
-            int result = cc.GetCreditScore(SSN);
-            System.out.println(result);
+        RulebaseController rbc = new RulebaseController();
+        String SSN = "123456-7890";
+        int result = cc.GetCreditScore(SSN);
+        System.out.println(result);
+        rbc.RequestBanks(100, 5000, 50);
+        
     }
-    
+
 }

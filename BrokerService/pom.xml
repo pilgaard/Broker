@@ -49,13 +49,13 @@
                         </goals>
                         <configuration>
                             <wsdlFiles>
-                                <wsdlFile>localhost_8080/RuleBase/RuleBaseWeb.wsdl</wsdlFile>
+                                <wsdlFile>localhost_8080/RuleBase_Maven/RuleBaseWeb.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName></packageName>
-                            <wsdlLocation>http://localhost:8080/RuleBase/RuleBaseWeb?wsdl</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/RuleBaseWeb.stale</staleFile>
+                            <wsdlLocation>http://localhost:8080/RuleBase_Maven/RuleBaseWeb?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/RuleBaseWeb_1.stale</staleFile>
                         </configuration>
-                        <id>wsimport-generate-RuleBaseWeb</id>
+                        <id>wsimport-generate-RuleBaseWeb_1</id>
                         <phase>generate-sources</phase>
                     </execution>
                 </executions>
