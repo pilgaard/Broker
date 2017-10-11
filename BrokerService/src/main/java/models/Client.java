@@ -9,11 +9,11 @@ package models;
  *
  * @author Andreas
  */
-public class Consumer {
+public class Client {
     
-    private String SSN;
-    private ConsumerRequest request;
-    private int CreditScore;
+    public String SSN;
+    public ClientRequest request;
+    public int CreditScore;
 
     public int getCreditScore() {
         return CreditScore;
@@ -23,11 +23,11 @@ public class Consumer {
         return SSN;
     }
 
-    public ConsumerRequest getRequest() {
+    public ClientRequest getRequest() {
         return request;
     }
 
-    public void setRequest(ConsumerRequest request) {
+    public void setRequest(ClientRequest request) {
         this.request = request;
     }
     

@@ -10,8 +10,6 @@ package credit;
  * @author emil
  */
 public class CreditController {
-    
-    private String CreditScoreUrl = "http://138.68.85.24:8080/CreditScoreService/CreditScoreService?wsdl";
 
     public int GetCreditScore(String SSN) {
         int result =0;

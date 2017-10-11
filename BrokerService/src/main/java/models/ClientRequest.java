@@ -9,10 +9,17 @@ package models;
  *
  * @author Andreas
  */
-public class ConsumerRequest {
+public class ClientRequest {
     
-    private int loanAmount;
-    private int loanDuration;
+    public int loanAmount;
+    public int loanDuration;
+
+    public ClientRequest(int loanAmount, int loanDuration) {
+        this.loanAmount = loanAmount;
+        this.loanDuration = loanDuration;
+    }
+    
+    
 
     public int getLoanAmount() {
         return loanAmount;

@@ -5,6 +5,11 @@
  */
 package credit;
 
+import java.util.List;
+import models.Client;
+import models.ClientRequest;
+import translator.Translator;
+
 /**
  *
  * @author emil
@@ -17,10 +22,22 @@ public class Main {
     public static void main(String[] args) {
         CreditController cc = new CreditController();
         RulebaseController rbc = new RulebaseController();
-        String SSN = "123456-7890";
-        int result = cc.GetCreditScore(SSN);
-        System.out.println(result);
-        rbc.RequestBanks(100, 5000, 50);
+        Translator t = new Translator();
+        
+        //Create client
+        Client c = new Client();
+        c.SSN = "123456-7890";
+        
+        //Retrieve CS
+        c.CreditScore = cc.GetCreditScore(c.SSN);
+        
+        c.request = new ClientRequest(15000, 100);
+        
+        //Get banks
+        List<String> results = rbc.RequestBanks(c.CreditScore, c.request.loanAmount, c.request.loanDuration);
+        
+        //Translate
+        t.Decode(results);
         
     }
 

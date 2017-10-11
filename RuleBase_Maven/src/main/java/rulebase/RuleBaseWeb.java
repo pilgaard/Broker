@@ -37,7 +37,7 @@ public class RuleBaseWeb {
         List<Bank> banks = bankController.GetAcceptedBanks(cs, amount, dur);
         List<String> JsonBanks = new ArrayList<>();
         for (int i = 0; i < banks.size(); i++) {
-            JsonBanks.add(BankToJson(banks.get(i)));
+            JsonBanks.add(banks.get(i).getName());
         }
         return JsonBanks;
     }

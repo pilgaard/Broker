@@ -6,6 +6,7 @@
 package credit;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,37 +14,17 @@ import java.util.Date;
  */
 public class RulebaseController {
 
-    public Bank EvaluateCreditScore(int creditScore) throws Exception {
-        if (creditScore >= 1 && creditScore <= 199) {
-            return Bank.SOFT_Json;
-        } else if (creditScore >= 200 && creditScore <= 399) {
-            return Bank.SOFT_XML;
-        } else if (creditScore >= 400 && creditScore <= 599) {
-            return Bank.BROKER_Json;
-        } else if (creditScore >= 600 && creditScore <= 800) {
-            return Bank.BROKER_XML;
-        } else {
-            throw new Exception("Invalid input");
-        }
-    }
-
-    public enum Bank {
-
-        SOFT_Json,
-        SOFT_XML,
-        BROKER_Json,
-        BROKER_XML
-    }
-
-    public void RequestBanks(int cs, int amount, int dur) {
+    public List<String> RequestBanks(int cs, int amount, int dur) {
         try {
             rulebase.RuleBaseWeb_Service service = new rulebase.RuleBaseWeb_Service();
             rulebase.RuleBaseWeb port = service.getRuleBaseWebPort();
             java.util.List<java.lang.String> result = port.getBanks(cs, amount, dur);
             System.out.println("Result = " + result);
+            return result;
         } catch (Exception ex) {
-    // TODO handle custom exceptions here
+            // TODO handle custom exceptions here
         }
+        return null;
     }
 
 }
