@@ -52,10 +52,13 @@
                                 <wsdlFile>localhost_8080/RuleBase_Maven/RuleBaseWeb.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName></packageName>
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                            </vmArgs>
                             <wsdlLocation>http://localhost:8080/RuleBase_Maven/RuleBaseWeb?wsdl</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/RuleBaseWeb_1.stale</staleFile>
+                            <staleFile>${project.build.directory}/jaxws/stale/RuleBaseWeb.stale</staleFile>
                         </configuration>
-                        <id>wsimport-generate-RuleBaseWeb_1</id>
+                        <id>wsimport-generate-RuleBaseWeb</id>
                         <phase>generate-sources</phase>
                     </execution>
                 </executions>
