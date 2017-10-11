@@ -15,6 +15,8 @@ import models.Client;
 import models.ClientRequest;
 import translator.Translator;
 import static translator.XMLBankTranslator.QUEUE_NAME;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  *
@@ -22,36 +24,38 @@ import static translator.XMLBankTranslator.QUEUE_NAME;
  */
 public class Main {
 
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException, TimeoutException {
-        /*
+        
         CreditController cc = new CreditController();
         RulebaseController rbc = new RulebaseController();
         Translator t = new Translator();
 
         //Create client
         Client c = new Client();
-        c.SSN = "123456-7890";
+        c.ssn = "123456-7890";
+        c.duration = 100;
+        c.amount = 15000;
 
         //Retrieve CS
-        c.CreditScore = cc.GetCreditScore(c.SSN);
-
-        c.request = new ClientRequest(15000, 100);
+        //c.CreditScore = cc.GetCreditScore(c.SSN);
 
         //Get banks
-        List<String> results = rbc.RequestBanks(c.CreditScore, c.request.loanAmount, c.request.loanDuration);
+        //List<String> results = rbc.RequestBanks(c.CreditScore, c.request.loanAmount, c.request.loanDuration);
 
         //Translate
-        t.Decode(results);
-                */
+        //t.Decode(results);
+                
         
-        initQueue();
+        initQueue(c);
 
     }
 
-    private static void initQueue() throws IOException, TimeoutException {
+    private static void initQueue(Client client) throws IOException, TimeoutException {
         String QUEUE_NAME = "GetCreditScore";
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("datdb.cphbusiness.dk");
@@ -61,7 +65,7 @@ public class Main {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-        String message = "Oh god I love memes";
+        String message = gson.toJson(client);
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
 

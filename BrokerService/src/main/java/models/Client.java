@@ -11,25 +11,43 @@ package models;
  */
 public class Client {
     
-    public String SSN;
-    public ClientRequest request;
-    public int CreditScore;
+    public String ssn;
+    public int creditscore;
+    public int amount;
+    public int duration;
 
-    public int getCreditScore() {
-        return CreditScore;
+    public String getSsn() {
+        return ssn;
     }
 
-    public String getSSN() {
-        return SSN;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
-    public ClientRequest getRequest() {
-        return request;
+    public int getCreditscore() {
+        return creditscore;
     }
 
-    public void setRequest(ClientRequest request) {
-        this.request = request;
+    public void setCreditscore(int creditscore) {
+        this.creditscore = creditscore;
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
     
     
     
