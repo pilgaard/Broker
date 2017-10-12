@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package credit;
+package messaging;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.json.JSONObject;
 
 /**
  *
@@ -14,17 +16,18 @@ import java.util.List;
  */
 public class RulebaseController {
 
-    public List<String> RequestBanks(int cs, int amount, int dur) {
+    public List<String> RequestBanks(JSONObject json) {
+        List result = new ArrayList();
         try {
             rulebase.RuleBaseWeb_Service service = new rulebase.RuleBaseWeb_Service();
             rulebase.RuleBaseWeb port = service.getRuleBaseWebPort();
-            java.util.List<java.lang.String> result = port.getBanks(cs, amount, dur);
-            System.out.println("Result = " + result);
-            return result;
+            System.out.println(json.getInt("creditscore"));
+            result = port.getBanks(json.getInt("creditscore"), json.getInt("amount"), json.getInt("duration"));
         } catch (Exception ex) {
-            // TODO handle custom exceptions here
+            System.out.println("ex = " + ex);
         }
-        return null;
+        return result;
     }
+
 
 }
