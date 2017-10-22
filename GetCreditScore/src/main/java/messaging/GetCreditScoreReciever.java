@@ -15,11 +15,8 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Client;
 import org.json.JSONException;
 
 /**
@@ -28,9 +25,8 @@ import org.json.JSONException;
  */
 import org.json.JSONObject;
 
-public class Recieve {
+public class GetCreditScoreReciever {
 
-    private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private static final String QUEUE_IN = "GetCreditScore";
     private static final String QUEUE_OUT = "GetBanks";
     private static final String HOST_NAME = "datdb.cphbusiness.dk";
@@ -58,9 +54,9 @@ public class Recieve {
                     String send = json.toString();
                     send(send);
                 } catch (JSONException ex) {
-                    Logger.getLogger(Recieve.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GetCreditScoreReciever.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (TimeoutException ex) {
-                    Logger.getLogger(Recieve.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GetCreditScoreReciever.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         };
@@ -76,9 +72,9 @@ public class Recieve {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(QUEUE_IN, false, false, false, null);
+        channel.queueDeclare(QUEUE_OUT, false, false, false, null);
         String message = jsonClient;
-        channel.basicPublish("", QUEUE_IN, null, message.getBytes());
+        channel.basicPublish("", QUEUE_OUT, null, message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
 
         channel.close();

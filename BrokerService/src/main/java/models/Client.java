@@ -12,7 +12,7 @@ package models;
 public class Client {
     
     public String ssn;
-    public int creditscore;
+    public int cs;
     public int amount;
     public int duration;
 
@@ -25,11 +25,11 @@ public class Client {
     }
 
     public int getCreditscore() {
-        return creditscore;
+        return cs;
     }
 
-    public void setCreditscore(int creditscore) {
-        this.creditscore = creditscore;
+    public void setCreditscore(int cs) {
+        this.cs = cs;
     }
 
     public int getAmount() {

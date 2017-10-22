@@ -36,11 +36,11 @@ public class Main {
         Translator t = new Translator();
 
         //Create client
-        Client c = new Client();
-        c.ssn = "123456-7890";
-        c.duration = 100;
-        c.amount = 15000;
-
+        Client c1 = new Client();
+        c1.ssn = "123456-7890";
+        c1.duration = 100;
+        c1.amount = 15000;
+        
         //Retrieve CS
         //c.CreditScore = cc.GetCreditScore(c.SSN);
 
@@ -48,11 +48,9 @@ public class Main {
         //List<String> results = rbc.RequestBanks(c.CreditScore, c.request.loanAmount, c.request.loanDuration);
 
         //Translate
-        //t.Decode(results);
-                
+        //t.Decode(results);     
         
-        initQueue(c);
-
+        initQueue(c1);
     }
 
     private static void initQueue(Client client) throws IOException, TimeoutException {

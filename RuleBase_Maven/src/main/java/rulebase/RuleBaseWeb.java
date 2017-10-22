@@ -39,6 +39,10 @@ public class RuleBaseWeb {
         for (int i = 0; i < banks.size(); i++) {
             JsonBanks.add(banks.get(i).getName());
         }
+        if(JsonBanks.isEmpty()){
+            JsonBanks.add("NONE");
+            return JsonBanks;
+        }
         return JsonBanks;
     }
 }

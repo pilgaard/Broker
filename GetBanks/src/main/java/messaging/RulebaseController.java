@@ -21,8 +21,8 @@ public class RulebaseController {
         try {
             rulebase.RuleBaseWeb_Service service = new rulebase.RuleBaseWeb_Service();
             rulebase.RuleBaseWeb port = service.getRuleBaseWebPort();
-            System.out.println(json.getInt("creditscore"));
-            result = port.getBanks(json.getInt("creditscore"), json.getInt("amount"), json.getInt("duration"));
+            System.out.println(json.getInt("cs"));
+            result = port.getBanks(json.getInt("cs"), json.getInt("amount"), json.getInt("duration"));
         } catch (Exception ex) {
             System.out.println("ex = " + ex);
         }
