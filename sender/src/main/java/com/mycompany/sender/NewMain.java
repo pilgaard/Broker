@@ -42,8 +42,9 @@ public class NewMain {
             
             
             JSONObject obj = new JSONObject();
-            obj.put("name", "foo");
             obj.put("ssn", "123456-7890");
+            obj.put("amount", 10);
+            obj.put("duration", 360);
             String message = obj.toString();
             channel.basicPublish("", QUEUE_IN, null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
