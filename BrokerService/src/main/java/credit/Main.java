@@ -32,7 +32,7 @@ public class Main {
     public static void main(String[] args) throws IOException, TimeoutException {
         
         CreditController cc = new CreditController();
-        RulebaseController rbc = new RulebaseController();
+        //RulebaseController rbc = new RulebaseController();
         Translator t = new Translator();
 
         //Create client

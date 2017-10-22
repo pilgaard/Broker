@@ -53,15 +53,37 @@ public class Recieve {
                 String recievedMessage = new String(body, "UTF-8");
                 try {
                     JSONObject json = new JSONObject(recievedMessage);
-                    final int result = cc.GetCreditScore(json.get("ssn").toString());
+                    int result = cc.GetCreditScore(json.get("ssn").toString());
+                    json.put("cs", result);
+                    String send = json.toString();
+                    send(send);
                 } catch (JSONException ex) {
                     Logger.getLogger(Recieve.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (TimeoutException ex) {
+                    Logger.getLogger(Recieve.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
-
         };
         channel.basicConsume(QUEUE_IN, true, consumer);
+    }
+
+    public static void send(String jsonClient) throws IOException, TimeoutException {
+
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost(HOST_NAME);
+        factory.setUsername(USERNAME);
+        factory.setPassword(PASSWORD);
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+
+        channel.queueDeclare(QUEUE_IN, false, false, false, null);
+        String message = jsonClient;
+        channel.basicPublish("", QUEUE_IN, null, message.getBytes());
+        System.out.println(" [x] Sent '" + message + "'");
+
+        channel.close();
+        connection.close();
+
     }
 
 }
