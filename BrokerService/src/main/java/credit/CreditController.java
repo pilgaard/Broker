@@ -11,7 +11,10 @@ package credit;
  */
 public class CreditController {
 
+    /*
     public int GetCreditScore(String SSN) {
+        
+     
         int result =0;
         try { // Call Web Service Operation
             org.bank.credit.web.service.CreditScoreService_Service service = new org.bank.credit.web.service.CreditScoreService_Service();
@@ -24,6 +27,7 @@ public class CreditController {
         }
         return result;
     }
+       */         
     
     
 }

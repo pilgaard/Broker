@@ -50,7 +50,7 @@ public class GetBanksReciever {
                 try {
                     JSONObject json = new JSONObject(recievedMessage);
                     //System.out.println(rbc.RequestBanks(json));
-                    send(rbc.RequestBanks(json));
+                    send(rbc.RequestBanks(json), json);
                 } catch (JSONException ex) {
                     Logger.getLogger(GetBanksReciever.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (TimeoutException ex) {
@@ -62,7 +62,7 @@ public class GetBanksReciever {
         channel.basicConsume(QUEUE_IN, true, consumer);
     }
     
-        public static void send(List<String> jsonBanks) throws IOException, TimeoutException {
+        public static void send(List<String> jsonBanks, JSONObject jsonObj) throws IOException, TimeoutException, JSONException {
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(HOST_NAME);
@@ -72,7 +72,8 @@ public class GetBanksReciever {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(QUEUE_OUT, false, false, false, null);
-        String message = jsonBanks.toString();
+        jsonObj.put("banks", jsonBanks.toString());
+        String message = jsonObj.toString();
         channel.basicPublish("", QUEUE_OUT, null, message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
 
