@@ -5,6 +5,9 @@
  */
 package messaging;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
@@ -13,7 +16,6 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,20 +24,19 @@ import org.json.JSONObject;
 
 /**
  *
- * @author Emil
+ * @author Andreas
  */
-public class GetBanksReciever {
-
-    private static final String QUEUE_IN = "GetBanks";
-    private static final String QUEUE_OUT = "RecipientList";
+public class RecipientListReciever {
+    
+    private static final String QUEUE_IN = "RecipientList";
+    private static final String QUEUE_OUT_JSON = "Translator_JSON";
+    private static final String QUEUE_OUT_XML = "Translator_XML";
     private static final String HOST_NAME = "datdb.cphbusiness.dk";
     private static final String USERNAME = "student";
     private static final String PASSWORD = "cph";
-
+    
     public static void main(String[] args) throws IOException, TimeoutException {
-
         ConnectionFactory factory = new ConnectionFactory();
-        final RulebaseController rbc = new RulebaseController();
         factory.setHost(HOST_NAME);
         factory.setUsername(USERNAME);
         factory.setPassword(PASSWORD);
@@ -47,37 +48,10 @@ public class GetBanksReciever {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String recievedMessage = new String(body, "UTF-8");
-                try {
-                    JSONObject json = new JSONObject(recievedMessage);
-                    //System.out.println(rbc.RequestBanks(json));
-                    send(rbc.RequestBanks(json));
-                } catch (JSONException ex) {
-                    Logger.getLogger(GetBanksReciever.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (TimeoutException ex) {
-                    Logger.getLogger(GetBanksReciever.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                System.out.println(recievedMessage);
             }
         };
         channel.basicConsume(QUEUE_IN, true, consumer);
     }
     
-        public static void send(List<String> jsonBanks) throws IOException, TimeoutException {
-
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost(HOST_NAME);
-        factory.setUsername(USERNAME);
-        factory.setPassword(PASSWORD);
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
-
-        channel.queueDeclare(QUEUE_OUT, false, false, false, null);
-        String message = jsonBanks.toString();
-        channel.basicPublish("", QUEUE_OUT, null, message.getBytes());
-        System.out.println(" [x] Sent '" + message + "'");
-
-        channel.close();
-        connection.close();
-
-    }
 }
