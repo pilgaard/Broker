@@ -68,6 +68,7 @@ public class Normalizer {
                 String receivedMessage = new String(body);
                 System.out.println("Received message: " + receivedMessage);
                 channel.basicAck(envelope.getDeliveryTag(), false);
+                System.out.println(envelope.getDeliveryTag());
                 try {
                     send(ConverToJSON(properties.getCorrelationId(), receivedMessage));
                 } catch (TimeoutException ex) {
