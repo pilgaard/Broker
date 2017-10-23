@@ -67,20 +67,27 @@ public class RecipientListReciever {
 
     private static List<String> GetBanksFromJson(String message) throws JSONException {
         JSONObject json = new JSONObject(message);
-        List<String> recipients = new ArrayList<>();
+        List<String> recipients = new ArrayList<String>();
+        String prefix = json.getJSONArray("banks").get(0).toString().split("\\.")[0];
+        String suffix = json.getJSONArray("banks").get(0).toString().split("\\.")[1];
+
         for (int i = 0; i < json.getJSONArray("banks").length(); i++) {
-            if (json.getJSONArray("banks").get(i).toString().split("\\.")[0] == "CPH") {
-                if (json.getJSONArray("banks").get(i).toString().split("\\.")[1] == "JSON") {
+            if (prefix.equals("SOFT")) {
+                if (suffix.equals("JSON")) {
                     recipients.add(QUEUE_OUT_CPHJSON);
-                } else if (json.getJSONArray("banks").get(i).toString().split("\\.")[1] == "XML") {
+                } else if (suffix.equals("XML")) {
                     recipients.add(QUEUE_OUT_CPHXML);
                 }
-            } else if (json.getJSONArray("banks").get(i).toString().split("\\.")[0] == "STUD") {
-                if (json.getJSONArray("banks").get(i).toString().split("\\.")[1] == "JSON") {
+            } else if (prefix.equals("STUD")) {
+                if (suffix.equals("JSON")) {
                     recipients.add(QUEUE_OUT_STUDJSON);
                 }
             }
+            else{
+                recipients.add("Translator_CPH_JSON");
+            }
         }
+        System.out.println(recipients.size());
         return recipients;
     }
 

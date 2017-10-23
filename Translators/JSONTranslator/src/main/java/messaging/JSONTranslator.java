@@ -54,7 +54,7 @@ public class JSONTranslator {
         factory.setUsername("student");
         factory.setPassword("cph");
         Connection connection = factory.newConnection();
-
+        
         Channel sendChannel = connection.createChannel();
         sendChannel.exchangeDeclare(QUEUE_IN, "direct");
 
@@ -63,7 +63,8 @@ public class JSONTranslator {
         replyChannel.queueDeclare(Normalizer_Queue, true, false, false, null);
         String replyQueue = replyChannel.queueDeclare().getQueue();
 
-        replyChannel.queueBind(replyQueue, QUEUE_IN, "BankJSON");
+        replyChannel.queueBind(replyQueue, QUEUE_IN, "JSONTranslator");
+               
 
         Consumer consumer = new DefaultConsumer(replyChannel) {
             @Override

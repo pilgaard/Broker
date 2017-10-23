@@ -4,3 +4,7 @@
 /RecipientList/target/
 /GetBanks/target/
 /RuleBase_Maven/target/
+/Translators/JSONTranslator/target/
+/Normalizer/target/
+/Translators/XMLTranslator/target/
+/Aggregator/target/

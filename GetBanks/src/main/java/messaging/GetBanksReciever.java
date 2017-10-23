@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,13 +57,13 @@ public class GetBanksReciever {
                 } catch (TimeoutException ex) {
                     Logger.getLogger(GetBanksReciever.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
         };
         channel.basicConsume(QUEUE_IN, true, consumer);
     }
-    
-        public static void send(List<String> jsonBanks, JSONObject jsonObj) throws IOException, TimeoutException, JSONException {
+
+    public static void send(List<String> jsonBanks, JSONObject jsonObj) throws IOException, TimeoutException, JSONException {
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(HOST_NAME);
@@ -72,7 +73,12 @@ public class GetBanksReciever {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(QUEUE_OUT, false, false, false, null);
-        jsonObj.put("banks", jsonBanks.toString());
+        JSONArray jarray = new JSONArray();
+        for (int i = 0; i < jsonBanks.size(); i++) {
+            jarray.put(jsonBanks.get(i));
+
+        }
+        jsonObj.put("banks", jarray);
         String message = jsonObj.toString();
         channel.basicPublish("", QUEUE_OUT, null, message.getBytes());
         System.out.println(" [x] Sent '" + message + "'");
