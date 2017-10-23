@@ -9,12 +9,8 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 import models.Client;
-import models.ClientRequest;
-import translator.Translator;
-import static translator.XMLBankTranslator.QUEUE_NAME;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -31,9 +27,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, TimeoutException {
         
-        CreditController cc = new CreditController();
         //RulebaseController rbc = new RulebaseController();
-        Translator t = new Translator();
 
         //Create client
         Client c1 = new Client();
@@ -70,5 +64,4 @@ public class Main {
         channel.close();
         connection.close();
     }
-
 }
