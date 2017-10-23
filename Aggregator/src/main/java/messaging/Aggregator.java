@@ -80,7 +80,7 @@ public class Aggregator {
             try {
                 while (true) {
                     isRunning = true;
-                    Thread.sleep(10000);
+                    Thread.sleep(1000*30);
                     isRunning = false;
                 }
             } catch (InterruptedException ex) {
@@ -91,7 +91,7 @@ public class Aggregator {
     };
 
     private static void FindBest() {
-        System.out.println("hej");
+        //Logic to find best result
     }
 
 }
