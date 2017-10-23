@@ -38,11 +38,10 @@ Og vores forskellige klassediagrammer
 
 ## Flaskehalse i programmet
 
-1. Lige nu sætter vi en timer for hvor længe vi vil vente på svar fra bankerne, dette er et sted der får tiden til at trække ud. Da vi ikke ved på forhånd hvor mange banker der er blevet kontaktet, er vi heller ikke klar over hvor mange svar der skal ventes på, og vi må derfpr bare sige at vi venter i et stykke tid, og hvis en bank ikke har nået at svare til tiden vil dette tilbud ikke komme med i overvejelserne, til et tilbud til kunden.
+1. Lige nu sætter vi 30 sekunder til hvor længe vi vil vente på svar fra bankerne, dette er et sted der får tiden til at trække ud. Da vi ikke ved på forhånd hvor mange banker der er blevet kontaktet, er vi heller ikke klar over hvor mange svar der skal ventes på, og vi må derfor bare sige at vi venter i et stykke tid, og hvis en bank ikke har nået at svare til tiden vil dette tilbud ikke komme med i overvejelserne, til et tilbud til kunden.
 
   - en løsning på dette kunne være at der bliver sendt en besked fra RecipientList til aggregatoren om hvor mange banker der er sendt besked til
-  
-2. 
+ 
 
 ## testabilitet
 
