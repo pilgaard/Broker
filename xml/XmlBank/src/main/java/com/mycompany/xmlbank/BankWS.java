@@ -29,7 +29,7 @@ import org.json.JSONObject;
 public class BankWS {
     
     private static final String QUEUE_OUT = "Normalizer";
-    private static final String HOST_NAME = "localhost";
+    private static final String HOST_NAME = "datdb.cphbusiness.dk";
     private static final double R = 5;
 
     /**
