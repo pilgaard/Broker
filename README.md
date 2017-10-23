@@ -27,5 +27,5 @@ Og vores forskellige klassediagrammer
 
 ![XMLTranslator Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/XMLTranslator.png)
 
-![XmlBank Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/XmlBank.pngg)
+![XmlBank Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/XmlBank.png)
 
