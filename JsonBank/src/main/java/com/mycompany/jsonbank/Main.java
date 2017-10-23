@@ -27,7 +27,7 @@ public class Main {
 
     private static final String QUEUE_IN = "Banks";
     private static final String QUEUE_OUT = "Normalizer";
-    private static final String HOST_NAME = "localhost";
+    private static final String HOST_NAME = "datdb.cphbusiness.dk";
     private static final double R = 3.14;
 
     public static void main(String[] args) throws IOException, TimeoutException {
