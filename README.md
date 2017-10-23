@@ -43,30 +43,43 @@ Og vores forskellige klassediagrammer
 ## Skærmbilleder
 
 Her har vi modtaget creditscore
+
 ![creditscore image](https://github.com/pilgaard/Broker/blob/master/Images/1GotCreditScore.png)
 
+
 Her har vi modtaget bankerne
+
 ![Recipients image](https://github.com/pilgaard/Broker/blob/master/Images/2GotRecipients.png)
 
+
 Her sender vi til translatorne 
+
 ![SendingToTranslators image](https://github.com/pilgaard/Broker/blob/master/Images/3SendingToTranslators.png)
 
+
 Her sender vi en JSON låneforspørgelse  
+
 ![SendingJSONLoanRequest image](https://github.com/pilgaard/Broker/blob/master/Images/4RecievedAndSendingJSONLoanRequest.png)
 
+
 Her sender vi en XML låneforspørgelse
+
 ![SendingXMLLoanRequest image](https://github.com/pilgaard/Broker/blob/master/Images/4SendingXMLLoanRequest.png)
 
+
 Her modtager Normalizeren svar fra en JSON bank
+
 ![NormalizerGotJSON image](https://github.com/pilgaard/Broker/blob/master/Images/5NormalizerGotJSONLoanResponse.png)
 
+
 Her modtager Normalizeren svar fra en XML bank
+
 ![NormalizerGotXML image](https://github.com/pilgaard/Broker/blob/master/Images/5NormalizerGotXMLLoanResponse.png)
 
 
 ## Flaskehalse i programmet
 
-1. Lige nu sætter 30 sekunder til hvor længe vi vil vente på svar fra bankerne, dette er et sted der får tiden til at trække ud. Da vi ikke ved på forhånd hvor mange banker der er blevet kontaktet, er vi heller ikke klar over hvor mange svar der skal ventes på, og vi må derfpr bare sige at vi venter i et stykke tid, og hvis en bank ikke har nået at svare til tiden vil dette tilbud ikke komme med i overvejelserne, til et tilbud til kunden.
+1. Lige nu sætter en timer på 30 sekunder til hvor længe vi vil vente på svar fra bankerne, dette er et sted der får tiden til at trække ud. Da vi ikke ved på forhånd hvor mange banker der er blevet kontaktet, er vi heller ikke klar over hvor mange svar der skal ventes på, og vi må derfpr bare sige at vi venter i et stykke tid, og hvis en bank ikke har nået at svare til tiden vil dette tilbud ikke komme med i overvejelserne, til et tilbud til kunden.
 
   - en løsning på dette kunne være at der bliver sendt en besked fra RecipientList til aggregatoren om hvor mange banker der er sendt besked til
  
