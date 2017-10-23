@@ -13,19 +13,22 @@ Vores sequence diagram ser sådan ud
 ![Sequence Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/Sequence%20diagram.png)
 
 Og vores forskellige klassediagrammer
-![GetBanks Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/GetBanks.png)
 
 ![GetCreditScore Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/GetCreditScore.png)
 
-![JsonBank Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/JsonBank.png)
-
-![JsonTranslator Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/JsonTranslator.png)
-
-![RecipientList Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/RecipientList.png)
+![GetBanks Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/GetBanks.png)
 
 ![RuleBase Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/RuleBase.png)
 
+![RecipientList Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/RecipientList.png)
+
+![JsonTranslator Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/JsonTranslator.png)
+
 ![XMLTranslator Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/XMLTranslator.png)
 
+![JsonBank Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/JsonBank.png)
+
 ![XmlBank Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/XmlBank.png)
+
+![Normalizer Diagram](https://github.com/pilgaard/Broker/blob/master/diagrammer/Normalizer.png)
 
