@@ -27,11 +27,6 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, TimeoutException {
         
-
-        //RulebaseController rbc = new RulebaseController();
-
-        //Create client
-
         Client c1 = new Client();
         c1.ssn = "123456-7890";
         c1.duration = 80;
