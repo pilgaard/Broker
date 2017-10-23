@@ -15,6 +15,7 @@ import com.rabbitmq.client.Envelope;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +47,7 @@ public class XMLTranslator {
         calendar.set(1970, 0, 1);
         calendar.add(Calendar.MONTH, duration);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+        format.setTimeZone(TimeZone.getTimeZone("CET"));
         String newdate = format.format(calendar.getTime());
         String xml = "<LoanRequest>\n"
                 + "   <ssn>" + newssn + "</ssn>\n"
@@ -61,14 +63,11 @@ public class XMLTranslator {
         factory.setHost(HOST_NAME);
         factory.setUsername("student");
         factory.setPassword("cph");
-        Connection connection = factory.newConnection();       
-        Channel sendChannel = connection.createChannel();
-        sendChannel.exchangeDeclare(QUEUE_IN, "direct");
-        Channel replyChannel = connection.createChannel();
-        replyChannel.queueDeclare(Normalizer_Queue, true, false, false, null);
-        String replyQueue = replyChannel.queueDeclare().getQueue();
-        replyChannel.queueBind(replyQueue, QUEUE_IN, "BankXML");
-        Consumer consumer = new DefaultConsumer(replyChannel) {
+        Connection connection = factory.newConnection();
+
+        Channel in = connection.createChannel();
+        in.queueDeclare(QUEUE_IN, false, false, false, null);
+        Consumer consumer = new DefaultConsumer(in) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String receivedMessage = new String(body);
@@ -82,7 +81,7 @@ public class XMLTranslator {
                 }
             }
         };
-        replyChannel.basicConsume(replyQueue, false, consumer);
+        in.basicConsume(QUEUE_IN, false, consumer);
     }
 
     private static void send(String message) throws IOException, TimeoutException {

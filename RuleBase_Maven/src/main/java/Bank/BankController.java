@@ -29,9 +29,9 @@ public class BankController {
 
     public BankController() {
         Bank SOFT_XML_Bank = new Bank("SOFT.XML", 0, 1000, 10000, 90);
-        Bank SOFT_JSON_Bank = new Bank("SOFT.JSON", 200, 10000, 30000, 120);
-        Bank STUD_XML_Bank = new Bank("STUD.XML", 400, 20000, 50000, 180);
-        Bank STUD_JSON_Tank = new Bank("STUD.JSON", 600, 100000, 500000, 240);
+        Bank SOFT_JSON_Bank = new Bank("SOFT.JSON", 0, 1000, 30000, 120);
+        Bank STUD_XML_Bank = new Bank("STUD.XML", 500, 50000, 100000, 180);
+        Bank STUD_JSON_Tank = new Bank("STUD.JSON", 500, 50000, 200000, 240);
 
         banks.add(SOFT_XML_Bank);
         banks.add(SOFT_JSON_Bank);

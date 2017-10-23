@@ -68,10 +68,10 @@ public class RecipientListReciever {
     private static List<String> GetBanksFromJson(String message) throws JSONException {
         JSONObject json = new JSONObject(message);
         List<String> recipients = new ArrayList<String>();
-        String prefix = json.getJSONArray("banks").get(0).toString().split("\\.")[0];
-        String suffix = json.getJSONArray("banks").get(0).toString().split("\\.")[1];
 
         for (int i = 0; i < json.getJSONArray("banks").length(); i++) {
+            String prefix = json.getJSONArray("banks").get(i).toString().split("\\.")[0];
+            String suffix = json.getJSONArray("banks").get(i).toString().split("\\.")[1];
             if (prefix.equals("SOFT")) {
                 if (suffix.equals("JSON")) {
                     recipients.add(QUEUE_OUT_CPHJSON);
@@ -83,11 +83,8 @@ public class RecipientListReciever {
                     recipients.add(QUEUE_OUT_STUDJSON);
                 }
             }
-            else{
-                recipients.add("Translator_CPH_JSON");
-            }
         }
-        System.out.println(recipients.size());
+        System.out.println(recipients);
         return recipients;
     }
 
@@ -103,6 +100,7 @@ public class RecipientListReciever {
             String QUEUE_OUT = recipients.get(i);
             channel.queueDeclare(QUEUE_OUT, false, false, false, null);
             channel.basicPublish("", QUEUE_OUT, null, message.getBytes());
+            System.out.println("sent to: " + QUEUE_OUT);
             System.out.println(" [x] Sent '" + message + "'");
         }
         channel.close();

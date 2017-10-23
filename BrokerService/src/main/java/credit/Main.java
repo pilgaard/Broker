@@ -38,8 +38,8 @@ public class Main {
         //Create client
         Client c1 = new Client();
         c1.ssn = "123456-7890";
-        c1.duration = 100;
-        c1.amount = 15000;
+        c1.duration = 80;
+        c1.amount = 9000;
         
         //Retrieve CS
         //c.CreditScore = cc.GetCreditScore(c.SSN);

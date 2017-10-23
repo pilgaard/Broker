@@ -55,18 +55,11 @@ public class JSONTranslator {
         factory.setPassword("cph");
         Connection connection = factory.newConnection();
         
-        Channel sendChannel = connection.createChannel();
-        sendChannel.exchangeDeclare(QUEUE_IN, "direct");
-
-        Channel replyChannel = connection.createChannel();
-
-        replyChannel.queueDeclare(Normalizer_Queue, true, false, false, null);
-        String replyQueue = replyChannel.queueDeclare().getQueue();
-
-        replyChannel.queueBind(replyQueue, QUEUE_IN, "JSONTranslator");
+        Channel in = connection.createChannel();
+        in.queueDeclare(QUEUE_IN, false, false, false, null);
                
 
-        Consumer consumer = new DefaultConsumer(replyChannel) {
+        Consumer consumer = new DefaultConsumer(in) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String receivedMessage = new String(body);
@@ -80,7 +73,7 @@ public class JSONTranslator {
                 }
             }
         };
-        replyChannel.basicConsume(replyQueue, false, consumer);
+        in.basicConsume(QUEUE_IN, false, consumer);
     }
 
     private static void send(String message) throws IOException, TimeoutException {

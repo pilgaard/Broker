@@ -14,6 +14,8 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
@@ -40,45 +42,40 @@ public class Normalizer {
     }
 
     private static void send(String message) throws IOException, TimeoutException {
-        //if message is "" it means an exception was thrown in the formatter, dont sent anything
-        if (!message.equals("")) {
-            ConnectionFactory factory = new ConnectionFactory();
-            factory.setHost(HOST_NAME);
-            factory.setUsername("student");
-            factory.setPassword("cph");
-            Connection connection = factory.newConnection();
-            Channel aggregatorChannel = connection.createChannel();
 
-            aggregatorChannel.queueDeclare(QUEUE_OUT, true, false, false, null);
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost(HOST_NAME);
+        factory.setUsername("student");
+        factory.setPassword("cph");
+        Connection connection = factory.newConnection();
+        Channel aggregatorChannel = connection.createChannel();
+        aggregatorChannel.queueDeclare(QUEUE_OUT, true, false, false, null);
+        AMQP.BasicProperties basicProperties = new AMQP.BasicProperties()
+                .builder()
+                .correlationId("Normalizer")
+                .build();
+        aggregatorChannel.basicPublish("", QUEUE_OUT, basicProperties, message.getBytes());
 
-            AMQP.BasicProperties basicProperties = new AMQP.BasicProperties()
-                    .builder()
-                    .correlationId("Normalizer")
-                    .build();
+        aggregatorChannel.close();
+        connection.close();
 
-            System.out.println("Sent to Aggregator: " + message);
-            System.out.println("******");
-            aggregatorChannel.basicPublish("", QUEUE_OUT, basicProperties, message.getBytes());
-
-            aggregatorChannel.close();
-            connection.close();
-        }
     }
 
     private static void recieve(final Channel channel, String queue) throws IOException {
-        System.out.println("***RECEIVING MESSAGES FROM " + queue + "***");
         Consumer qc = new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String receivedMessage = new String(body);
-                System.out.println("Correlation ID: " + properties.getCorrelationId());
                 System.out.println("Received message: " + receivedMessage);
                 channel.basicAck(envelope.getDeliveryTag(), false);
-
+                try {
+                    send(ConverToJSON(properties.getCorrelationId(), receivedMessage));
+                } catch (TimeoutException ex) {
+                    Logger.getLogger(Normalizer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
         channel.basicConsume(queue, false, qc);
-
     }
 
     private static String ConverToJSON(String coID, String message) {
